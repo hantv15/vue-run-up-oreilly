@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul class="js-items">
+        <!-- Logic sử dụng v-if trong vue, nếu item không tồn tại thì in ra text -->
+        <li v-if="!item.length">Sorry, there are no items.</li>
+        <!-- nếu tồn tại thì vòng for sẽ on ra các item với thẻ li-->
+        <li v-for="item in items" :class={ 'is-blue': item.includes( 'blue')}>{{ item }}</li>
+    </ul>
+    <script>
+        // tạo ra đối tượng Vue
+        new Vue({
+            el: '.js-items',
+            data: {
+                ítems: []
+            },
+            created() {
+                fetch('https://example.com/items.json')
+                    .then((res) => res.json())
+                    .then((data) => {
+                        this.items = data.items;
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul class="js-items"></ul>
+</body>
+<!-- Sử dụng Jquery, tải những item, lựa chọn phần tử ul -->
+<script>
+    $(function() {
+        $.get('https://example.com/items.json')
+            .then(function(data) {
+                var $itemUI = $('.json-items');
+
+                if (!data.items.length) {
+                    var $noItems = $('li');
+                    $noItems.text('Sorry, there are no items.');
+                    $itemUI.append($noItems);
+                } else {
+                    data.items.forEach(function(item) {
+                        var $newItem = $('li');
+                        $newItem.text(item);
+
+                        if (item.includes('blue')) {
+                            $newItem.addClass('is-blue');
+                        }
+                        $itemUI.append($newItem);
+                    });
+                }
+            });
+    });
+</script>
+
+</html>
